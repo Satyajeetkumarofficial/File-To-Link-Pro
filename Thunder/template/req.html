@@ -60,6 +60,10 @@
                 </p>
                 <p>Your browser does not support the video tag. Please <a href="{{ src }}" download>download the video</a> instead.</p>
             </video>
+            <!-- Mute/Unmute Button -->
+            <button id="mute-btn" class="action-button button-base" title="Mute/Unmute">
+                🔊
+            </button>
         </section>
 
         <!-- Controls -->
@@ -141,13 +145,26 @@ document.addEventListener('DOMContentLoaded', () => {
         controls: ['play', 'progress', 'volume', 'fullscreen', 'current-time', 'duration'],
     });
 
-    // Audio warning if no audio track detected
+    // Audio warning if no audio detected
     player.on('ready', () => {
         player.volume = 1;
         player.muted = false;
-        if(player.audioTracks && player.audioTracks.length === 0){
+        if(player.media.mozHasAudio === false || player.media.webkitAudioDecodedByteCount === 0){
             document.getElementById('audio-warning').style.display = 'block';
         }
+    });
+
+    // Ensure volume is restored on first play (fix browser autoplay policies)
+    player.on('play', () => {
+        if(player.muted) player.muted = false;
+        player.volume = 1;
+    });
+
+    // Mute/Unmute button
+    const muteBtn = document.getElementById('mute-btn');
+    muteBtn.addEventListener('click', () => {
+        player.muted = !player.muted;
+        muteBtn.textContent = player.muted ? '🔇' : '🔊';
     });
 
     // Theme toggle
@@ -155,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     themeBtn.addEventListener('click', () => {
         document.documentElement.dataset.theme =
             document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        themeBtn.innerHTML = document.documentElement.dataset.theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
     });
 
     // Current year
@@ -214,8 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'vlc':
                     urlScheme = `vlc://{{ src }}`;
                     break;
-                case 'mx':
                 case 'mxpro':
+                    urlScheme = `intent://${encodeURIComponent('{{ src }}')}#Intent;package=com.mxtech.videoplayer.pro;end`;
+                    break;
+                case 'mx':
                     urlScheme = `intent://${encodeURIComponent('{{ src }}')}#Intent;package=com.mxtech.videoplayer.ad;end`;
                     break;
                 default:
@@ -231,4 +251,4 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- Bot Script -->
 <script src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/script.js" defer></script>
 </body>
-                            </html>
+</html>
