@@ -150,7 +150,7 @@ MSG_WELCOME = (
 )
 
 MSG_HELP = (
-    "📘 **{bot_info.first_name} - Help Guide** 📖\n\n"
+    "📘 **Fast File To Link - Help Guide** 📖\n\n"
     "How to get direct download & streaming links:\n\n"
     "**🚀 Private Chat (with me):**\n"
     "> 1. Send me **any file** (document, video, audio, photo, etc.).\n"
@@ -182,7 +182,7 @@ MSG_HELP = (
 )
 
 MSG_ABOUT = (
-    "🌟 **About {bot_info.first_name}** ℹ️\n\n"
+    "🌟 **About File To Link** ℹ️\n\n"
     "I'm your go-to bot for **instant download & streaming!** ⚡\n\n"
     "**🚀 Key Features:**\n"
     "> **Instant Links:** Get your links within seconds.\n"
@@ -382,6 +382,7 @@ MSG_SYSTEM_STATS = (
 )
 
 MSG_DB_STATS = "📊 **Database Statistics**\n\n> 👥 **Total Users:** `{total_users}`"
+
 
 
 
