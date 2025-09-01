@@ -40,7 +40,7 @@ def print_banner():
 (__)  (_)\_)(_____)  (____/(_____) (__) (____)
 """
     print(banner)
-
+    
 async def import_plugins():
     print("╠════════════════════ IMPORTING PLUGINS ════════════════════╣")
     plugins = glob.glob(PLUGIN_PATH)
@@ -237,4 +237,5 @@ if __name__ == '__main__':
         logger.error(f"An unexpected error occurred: {e}")
     finally:
         loop.close()
+
 
