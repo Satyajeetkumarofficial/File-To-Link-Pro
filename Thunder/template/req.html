@@ -136,7 +136,13 @@
     </div>
 
     <footer>
-        <p><span id="thunder-text">⚡ FastFile2Link | Direct Download</span> © <span id="current-year"></span> | <a href="https://t.me/QuickFile2LinkProBot" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub"><i class="fab fa-github" aria-hidden="true"></i> <span>GitHub</span></a></p>
+    <p>
+        <span id="thunder-text">⚡ FastFile2Link | Direct Download</span> © <span id="current-year"></span> | 
+        <a href="https://t.me/QuickFile2LinkProBot" target="_blank" rel="noopener noreferrer" aria-label="Open Telegram Bot">
+            <i class="fab fa-telegram-plane" aria-hidden="true"></i> 
+            <span>Telegram</span>
+        </a>
+    </p>
     </footer>
 
     <div class="toast" id="toast" role="alert" aria-live="polite" aria-atomic="true" aria-hidden="true">
@@ -146,10 +152,38 @@
         <div class="toast-message">Action completed.</div>
     </div>
 
+    <!-- Plyr JS -->
     <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js" defer></script>
+
+    <!-- Main Script -->
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Plyr
+            const player = new Plyr('#player', {
+                autoplay: false,
+                muted: false,
+                controls: ['play', 'progress', 'volume', 'fullscreen', 'current-time', 'duration'],
+            });
+
+            // Ensure volume is max
+            player.on('ready', () => {
+                player.volume = 1;
+                player.muted = false;
+            });
+
+            // Theme toggle
+            const themeBtn = document.querySelector('.theme-toggle');
+            themeBtn.addEventListener('click', () => {
+                document.documentElement.dataset.theme =
+                    document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+            });
+
+            // Set current year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+
+    <!-- Original Script (Bot repo) -->
     <script src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/script.js" defer></script>
 </body>
 </html>
-
-
-
