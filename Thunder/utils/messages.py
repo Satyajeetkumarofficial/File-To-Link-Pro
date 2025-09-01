@@ -139,7 +139,7 @@ MSG_BUTTON_CLOSE = "✖ Close"
 # =====================================================================================
 
 MSG_WELCOME = (
-    "🌟 **Welcome, {user_name}!** 🌟\n\n"
+    "🌟 **Welcome, {bot_info.first_name}!** 🌟\n\n"
     "I'm **{bot.me.username}** ⚡\n"
     "I generate direct download and streaming links for your files.\n\n"
     "**How to use:**\n"
@@ -382,6 +382,7 @@ MSG_SYSTEM_STATS = (
 )
 
 MSG_DB_STATS = "📊 **Database Statistics**\n\n> 👥 **Total Users:** `{total_users}`"
+
 
 
 
