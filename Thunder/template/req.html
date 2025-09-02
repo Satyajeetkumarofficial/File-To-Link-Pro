@@ -1,171 +1,251 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FileStreamBot | {{file_name}}</title>
-    <link rel="icon" href="https://i.ibb.co/Hh4kF2b/icon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="https://i.ibb.co/Hh4kF2b/icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://unpkg.com/sheryjs/dist/Shery.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/proavipatil/data@main/fs/src/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/proavipatil/data@main/fs/src/plyr.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{{ heading }}</title>
 
+    <!-- Social Meta Tags -->
+    <meta name="description" content="Easily share and distribute files">
+    <meta property="og:title" content="Thunder FileToLink">
+    <meta property="og:description" content="File Streamer">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/live.png">
+
+    <!-- Theme & App Configuration -->
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="msapplication-navbutton-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1a1a2e">
+    <meta name="color-scheme" content="dark light">
+    <meta name="application-name" content="FastFile2Link | Direct Download">
+
+    <!-- Icons -->
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/Thunder.jpg">
+    <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/Thunder.jpg">
+
+    <!-- Fonts & CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/style.css">
 </head>
-
 <body>
-    <nav>
-        <div class="nleft">
-            <a href="#">
-                <h3 id="heading" style="z-index: 100;" class="magnet title">FILE STREAM</h3>
-            </a>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle button-base" aria-label="Toggle Light/Dark Mode" aria-pressed="false" title="Toggle Light/Dark Mode">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+</button>
+
+<div class="background-animation" aria-hidden="true">
+    <div class="bg-gradient"></div>
+</div>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header">
+        <div class="file-info">
+            <h1 id="file-name">{{ file_name }}</h1>
+            <div class="file-meta" role="group" aria-label="File metadata"></div>
         </div>
-        <div class="nryt">
-            <a class="home-btn magnet" href="#main" onclick="toggleWidthnav(this)">HOME</a>
+    </header>
 
-            <a href="#abtus" class="about-btn magnet" onclick="toggleWidthnav(this)">ABOUT</a>
-        </div>
-    </nav>
-    <center>
-        <div class="about-nav">
-            <a href="#abtus" class="wlcm magnet" onclick="toggleWidth(this)">WELCOME</a>
-            <a href="#channels" class="abt-chnl magnet" onclick="toggleWidth(this)">CHANNELS</a>
-            <a href="#contact" class="magnet contact-btn" onclick="toggleWidth(this)">CONTACT</a>
-        </div>
-    </center>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Video Player -->
+        <section class="player-container" aria-label="Video Player">
+            <video id="player" playsinline preload="metadata" controlsList="nodownload" aria-label="Video player">
+                <source src="{{ src }}" type="video/mp4" />
+                <p id="audio-warning" style="color:yellow; display:none;">
+                    ⚠ Browser may not support audio. Use external player for best experience.
+                </p>
+                <p>Your browser does not support the video tag. Please <a href="{{ src }}" download>download the video</a> instead.</p>
+            </video>
+        </section>
 
-    <div class="outer">
-        <div class="inner">
-            <div class="main" id="main">
-                <video id="player" class="player" src="{{file_url}}" type="video/mp4" playsinline controls
-                    width="100%"></video>
-                <div class="player"></div>
-                <div class="file-name">
-                    <h4 style="display: inline;">File Name: </h4>
-                    <p style="display: inline;" id="myDiv">{{file_name}}</p><br>
-                    <h4 style="display: inline;">File Size: </h4>
-                    <p style="display: inline;">{{file_size}}</p>
-                </div>
-                <div class="downloadBtn">
-                    <button class="magnet" onclick="streamDownload()">
-                        <img style="height: 30px;" src="https://i.ibb.co/RjzYttX/dl.png" alt="">download video
-                    </button>
-                    <button class="magnet" onclick="copyStreamLink()">
-                        <img src="https://i.ibb.co/CM4Y586/link.png" alt="Copy Link">copy link
-                    </button>
-                    <button class="magnet" onclick="vlc_player()">
-                        <img src="https://i.ibb.co/px6fQs1/vlc.png" alt="">watch in VLC PLAYER
-                    </button>
-                    <button class="magnet" onclick="mx_player()">
-                        <img src="https://i.ibb.co/41WvtQ3/mx.png" alt="">watch in MX PLAYER
-                    </button>
-                    <button class="magnet" onclick="n_player()">
-                        <img src="https://i.ibb.co/Hd2dS4t/nPlayer.png" alt="">watch in nPlayer
-                    </button>
-                </div>
-
-            </div>
-            <div class="abt">
-                <div class="about">
-                    <div class="about-dets">
-
-                        <div class="abt-sec" id="abtus" style="padding: 160px 30px;">
-                            <h1 style="text-align: center;">WELCOME TO OUR <Span>FILE STREAM</Span> BOT</h1>
-                            <p style="text-align: center; line-height: 2;word-spacing: 2px;  letter-spacing: 0.8px;">
-                                This is a Telegram Bot to Stream <span>Movies</span> and <span>Series</span> directly on
-                                Telegram. You can also
-                                <span>download</span> them if you want. This bot is developed by <a
-                                    href="https://github.com/AviPatilPro"><span style="font-weight: 700;">Avi</span></a>
-                                <br><br>If you like this bot, then don't
-                                forget to share it with your friends and family.
-                            </p>
-                        </div>
-
-                        <div class="abt-sec" id="channels">
-                            <h1>JOIN OUR <span>TELEGRAM</span> CHANNELS</h1>
-                            <div class="links chnl-link">
-                                <a class="magnet" href="https://t.me/CheapieDeals">
-                                    <button>CHEAP DEALS</button>
-                                </a>
-                                <a class="magnet" href="https://t.me/FilmyPixel">
-                                    <button>FILMYPIXEL</button>
-                                </a>
-                                <a class="magnet" href="https://t.me/PostersZone">
-                                    <button>POSTERS ZONE</button>
-                                </a>
-                                <a class="magnet" href="https://t.me/EpitomeQuality">
-                                    <button>EPITOME QUALITY</button>
-                                </a>
+        <!-- Controls -->
+        <nav class="controls-section" aria-label="File options">
+            <div class="dropdown-container" id="stream-dropdown-container">
+                <button type="button" class="action-button button-base secondary-button stream-btn" aria-haspopup="true" aria-expanded="false" aria-controls="stream-menu" id="stream-btn-label">
+                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    <span>Stream</span>
+                </button>
+                <div class="dropdown-menu" id="stream-menu" aria-labelledby="stream-btn-label" role="menu" style="display:none;">
+                    <div class="stream-menu-header">
+                        <h3>Open with external player</h3>
+                        <button type="button" aria-label="Close menu" class="stream-menu-close button-base">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="stream-menu-content">
+                        <div class="stream-category">
+                            <h4 class="category-heading"><i class="fas fa-mobile-screen-button" aria-hidden="true"></i> Mobile Players</h4>
+                            <div class="player-grid" role="group" aria-label="Mobile video players">
+                                <button type="button" class="player-card dropdown-item" role="menuitem" data-player-type="vlc">
+                                    <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/vlc.png" alt="VLC Mobile" width="32" height="32">
+                                    <span class="player-name">VLC Mobile</span>
+                                </button>
+                                <button type="button" class="player-card dropdown-item" role="menuitem" data-player-type="mxpro">
+                                    <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/mx.png" alt="MX Player Pro" width="32" height="32">
+                                    <span class="player-name">MX Pro</span>
+                                </button>
+                                <button type="button" class="player-card dropdown-item" role="menuitem" data-player-type="mx">
+                                    <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/mx.png" alt="MX Player" width="32" height="32">
+                                    <span class="player-name">MX Player</span>
+                                </button>
                             </div>
                         </div>
-
-                        <div class="abt-sec" id="contact">
-                            <p style="text-align: center;">Report Bugs and Contact us on Telegram Below</p>
-                            <div class="links contact">
-                                <a href="https://t.me/AvishkarPatil">
-                                    <button>CONTACT</button>
-                                </a>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-        <footer>
-            <center>
+            <button type="button" class="action-button button-base secondary-button" title="Download the video" aria-label="Download video file">
+                <i class="fas fa-cloud-download-alt" aria-hidden="true"></i>
+                <span>Download</span>
+            </button>
+            <button type="button" class="action-button button-base secondary-button" title="Copy video link" aria-label="Copy video link to clipboard">
+                <i class="fas fa-copy" aria-hidden="true"></i>
+                <span>Copy Link</span>
+            </button>
+        </nav>
+    </main>
+</div>
 
-                <div class="movie-cont">
-                    <div class="movieSug">
-                        <div class="movieDets">
+<!-- Footer -->
+<footer>
+    <p>
+        <span id="thunder-text">⚡ FastFile2Link | Direct Download</span> © <span id="current-year"></span> | 
+        <a href="https://t.me/QuickFile2LinkProBot" target="_blank" rel="noopener noreferrer" aria-label="Open Telegram Bot">
+            <i class="fab fa-telegram-plane" aria-hidden="true"></i> 
+            <span>Telegram</span>
+        </a>
+    </p>
+</footer>
 
-                        </div>
-                        <div class="movieimg">
-                            <img src="">
-                        </div>
-                    </div>
-                    <div class="low-width-movie-dets">
-                        <div class="movieStsBar">
-                            <div class="movieDets-mini">
-
-                            </div>
-                        </div>
-                    </div>
-                    <button class="ranMovBtn" onclick="getDets()">Get More Movies Suggestion</button>
-                </div>
-
-            </center>
-
-            <center>
-                <div class="copyright">
-                    <h5 class="text-center">Copyright © 2024 <a href="https://github.com/AviPatilPro"><span
-                                style="font-weight: 700;">Avishkar Patil</span></a>. All
-                        Rights Reserved.</h5>
-                </div>
-            </center>
-        </footer>
+<!-- Toast -->
+<div class="toast" id="toast" role="alert" aria-live="polite" aria-atomic="true" aria-hidden="true">
+    <div class="toast-icon" aria-hidden="true">
+        <i class="fas fa-info-circle"></i>
     </div>
-</body>
+    <div class="toast-message">Action completed.</div>
+</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.155.0/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/automat/controlkit.js@master/bin/controlKit.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sheryjs/dist/Shery.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const uncopyableElement = document.querySelector(".uncopyable");
+<!-- Plyr JS -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js" defer></script>
 
-        uncopyableElement.addEventListener("selectstart", function (event) {
-            event.preventDefault();
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Plyr with mute/unmute button in controls
+    const player = new Plyr('#player', {
+        autoplay: false,
+        muted: false,
+        volume: 1,
+        controls: [
+            'play',
+            'progress',
+            'current-time',
+            'duration',
+            'mute',      // ✅ default mute/unmute toggle
+            'volume',
+            'fullscreen'
+        ],
+    });
+
+    // Audio warning if no audio detected
+    player.on('ready', () => {
+        player.volume = 1;
+        player.muted = false;
+        if(player.media.mozHasAudio === false || player.media.webkitAudioDecodedByteCount === 0){
+            document.getElementById('audio-warning').style.display = 'block';
+        }
+    });
+
+    // Ensure sound plays when user clicks play
+    player.on('play', () => {
+        player.muted = false;
+        player.volume = 1;
+    });
+
+    // Theme toggle
+    const themeBtn = document.querySelector('.theme-toggle');
+    themeBtn.addEventListener('click', () => {
+        document.documentElement.dataset.theme =
+            document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        themeBtn.innerHTML = document.documentElement.dataset.theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    });
+
+    // Current year
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Toast function
+    const toast = document.getElementById('toast');
+    const showToast = (message) => {
+        toast.querySelector('.toast-message').textContent = message;
+        toast.setAttribute('aria-hidden', 'false');
+        setTimeout(() => toast.setAttribute('aria-hidden', 'true'), 2500);
+    };
+
+    // Copy Link button
+    const copyBtn = document.querySelector('[aria-label="Copy video link to clipboard"]');
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('{{ src }}')
+            .then(() => showToast('Video link copied!'))
+            .catch(() => showToast('Failed to copy link.'));
+    });
+
+    // Download button
+    const downloadBtn = document.querySelector('[aria-label="Download video file"]');
+    downloadBtn.addEventListener('click', () => {
+        const a = document.createElement('a');
+        a.href = '{{ src }}';
+        a.download = '{{ file_name }}';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast('Download started!');
+    });
+
+    // Stream menu toggle
+    const streamBtn = document.getElementById('stream-btn-label');
+    const streamMenu = document.getElementById('stream-menu');
+    const closeStreamBtn = streamMenu.querySelector('.stream-menu-close');
+
+    streamBtn.addEventListener('click', () => {
+        const expanded = streamBtn.getAttribute('aria-expanded') === 'true';
+        streamBtn.setAttribute('aria-expanded', !expanded);
+        streamMenu.style.display = expanded ? 'none' : 'block';
+    });
+
+    closeStreamBtn.addEventListener('click', () => {
+        streamBtn.setAttribute('aria-expanded', false);
+        streamMenu.style.display = 'none';
+    });
+
+    // Stream player buttons
+    const playerCards = streamMenu.querySelectorAll('.player-card');
+    playerCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const playerType = card.dataset.playerType;
+            let urlScheme = '';
+            switch(playerType){
+                case 'vlc':
+                    urlScheme = `vlc://{{ src }}`;
+                    break;
+                case 'mxpro':
+                    urlScheme = `intent://${encodeURIComponent('{{ src }}')}#Intent;package=com.mxtech.videoplayer.pro;end`;
+                    break;
+                case 'mx':
+                    urlScheme = `intent://${encodeURIComponent('{{ src }}')}#Intent;package=com.mxtech.videoplayer.ad;end`;
+                    break;
+                default:
+                    urlScheme = '{{ src }}';
+            }
+            window.open(urlScheme, '_blank');
+            showToast(`Opening in ${card.querySelector('.player-name').textContent}`);
         });
     });
+});
 </script>
-<script src="https://cdn.plyr.io/3.6.9/plyr.js"></script>
-<script src="https://proavipatil.github.io/data/fs/src/script.js"></script>
 
+<!-- Bot Script -->
+<script src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/script.js" defer></script>
+</body>
 </html>
