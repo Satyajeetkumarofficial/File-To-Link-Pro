@@ -1,254 +1,111 @@
+<!-- Code by fyaz05 -->
+
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ heading }}</title>
-
-    <!-- Social Meta Tags -->
-    <meta name="description" content="Easily share and distribute files">
-    <meta property="og:title" content="Thunder FileToLink">
-    <meta property="og:description" content="File Streamer">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/live.png">
-
-    <!-- Theme & App Configuration -->
-    <meta name="theme-color" content="#1a1a2e">
-    <meta name="msapplication-navbutton-color" content="#1a1a2e">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#1a1a2e">
-    <meta name="color-scheme" content="dark light">
-    <meta name="application-name" content="FastFile2Link | Direct Download">
-
-    <!-- Icons -->
-    <link rel="icon" href="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/Thunder.jpg">
-    <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/Thunder.jpg">
-
-    <!-- Fonts & CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <meta property="og:image" content="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/live.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>%s</title>
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/Thunder.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/style.css">
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/reqStyles.css">
 <body>
-
-<!-- Theme Toggle -->
-<button class="theme-toggle button-base" aria-label="Toggle Light/Dark Mode" aria-pressed="false" title="Toggle Light/Dark Mode">
-    <i class="fas fa-moon" aria-hidden="true"></i>
-</button>
-
-<div class="background-animation" aria-hidden="true">
-    <div class="bg-gradient"></div>
-</div>
-
-<div class="container">
-    <!-- Header -->
-    <header class="header">
-        <div class="file-info">
-            <h1 id="file-name">{{ file_name }}</h1>
-            <div class="file-meta" role="group" aria-label="File metadata"></div>
+    <div class="container">
+        <header>
+            <h1 id="file-name">%s</h1>
+        </header>
+        <div class="player-container">
+            <div class="video-wrapper">
+                <video class="plyr" controls poster="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/videobg.jpg" alt="Video Player Poster Image">
+                    <source src="%s" type="video/mp4" alt="Video Source">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Video Player -->
-        <section class="player-container" aria-label="Video Player">
-            <video id="player" playsinline preload="metadata" controlsList="nodownload" aria-label="Video player">
-                <source src="{{ src }}" type="video/mp4" />
-                <p id="audio-warning" style="color:yellow; display:none;">
-                    ⚠ Browser may not support audio. Use external player for best experience.
-                </p>
-                <p>Your browser does not support the video tag. Please <a href="{{ src }}" download>download the video</a> instead.</p>
-            </video>
-            <!-- Mute/Unmute Button -->
-            <button id="mute-btn" class="action-button button-base" title="Mute/Unmute">
-                🔊
-            </button>
-        </section>
-
-        <!-- Controls -->
-        <nav class="controls-section" aria-label="File options">
-            <div class="dropdown-container" id="stream-dropdown-container">
-                <button type="button" class="action-button button-base secondary-button stream-btn" aria-haspopup="true" aria-expanded="false" aria-controls="stream-menu" id="stream-btn-label">
-                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-                    <span>Stream</span>
+        <p class="unsupported-message">⚠️ If the video isn't playing, it might not be supported in the browser. Try in a video player.</p>
+        <div class="controls">
+            <div class="dropdown">
+                <button class="btn">
+                    <i class="fas fa-play-circle"></i> Stream
                 </button>
-                <div class="dropdown-menu" id="stream-menu" aria-labelledby="stream-btn-label" role="menu" style="display:none;">
-                    <div class="stream-menu-header">
-                        <h3>Open with external player</h3>
-                        <button type="button" aria-label="Close menu" class="stream-menu-close button-base">
-                            <i class="fas fa-times" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div class="stream-menu-content">
-                        <div class="stream-category">
-                            <h4 class="category-heading"><i class="fas fa-mobile-screen-button" aria-hidden="true"></i> Mobile Players</h4>
-                            <div class="player-grid" role="group" aria-label="Mobile video players">
-                                <button type="button" class="player-card dropdown-item" role="menuitem" data-player-type="vlc">
-                                    <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/vlc.png" alt="VLC Mobile" width="32" height="32">
-                                    <span class="player-name">VLC Mobile</span>
-                                </button>
-                                <button type="button" class="player-card dropdown-item" role="menuitem" data-player-type="mxpro">
-                                    <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/mx.png" alt="MX Player Pro" width="32" height="32">
-                                    <span class="player-name">MX Pro</span>
-                                </button>
-                                <button type="button" class="player-card dropdown-item" role="menuitem" data-player-type="mx">
-                                    <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/mx.png" alt="MX Player" width="32" height="32">
-                                    <span class="player-name">MX Player</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="dropdown-content">
+                    <a href="#" onclick="playOnline('vlc')">
+                        <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/vlc.png" alt="VLC Mobile" class="player-logo"> VLC Mobile
+                    </a>
+                    <a href="#" onclick="playOnline('mxp')">
+                        <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/mx.png" alt="MX Player Pro" class="player-logo"> MX Player Pro
+                    </a>
+                    <a href="#" onclick="playOnline('mx')">
+                        <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/mx.png" alt="MX Player" class="player-logo"> MX Player
+                    </a>
+                    <a href="#" onclick="playOnline('np')">
+                        <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/nPlayer.webp" alt="nPlayer" class="player-logo"> nPlayer
+                    </a>
+                    <a href="#" onclick="playOnline('sp')">
+                        <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/splayer.webp" alt="S Player" class="player-logo"> S Player
+                    </a>
+                    <a href="#" onclick="playOnline('km')">
+                        <img src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/HydroStreamerBot/km.webp" alt="KM Player" class="player-logo"> KM Player
+                    </a>
                 </div>
             </div>
-            <button type="button" class="action-button button-base secondary-button" title="Download the video" aria-label="Download video file">
-                <i class="fas fa-cloud-download-alt" aria-hidden="true"></i>
-                <span>Download</span>
+            <button class="btn download" onclick="download()">
+                <i class="fas fa-cloud-download-alt"></i> Download
             </button>
-            <button type="button" class="action-button button-base secondary-button" title="Copy video link" aria-label="Copy video link to clipboard">
-                <i class="fas fa-copy" aria-hidden="true"></i>
-                <span>Copy Link</span>
+            <button class="btn copy-link" onclick="copyLink()">
+                <i class="fas fa-link"></i> Copy Link
             </button>
-        </nav>
-    </main>
-</div>
-
-<!-- Footer -->
-<footer>
-    <p>
-        <span id="thunder-text">⚡ FastFile2Link | Direct Download</span> © <span id="current-year"></span> | 
-        <a href="https://t.me/QuickFile2LinkProBot" target="_blank" rel="noopener noreferrer" aria-label="Open Telegram Bot">
-            <i class="fab fa-telegram-plane" aria-hidden="true"></i> 
-            <span>Telegram</span>
-        </a>
-    </p>
-</footer>
-
-<!-- Toast -->
-<div class="toast" id="toast" role="alert" aria-live="polite" aria-atomic="true" aria-hidden="true">
-    <div class="toast-icon" aria-hidden="true">
-        <i class="fas fa-info-circle"></i>
+        </div>
     </div>
-    <div class="toast-message">Action completed.</div>
-</div>
+    <footer>
+        <!-- Replace the below link with your link -->
+        <a href="https://telegram.me/BalaPriyan" target="_blank">
+            <i class="fab fa-telegram-plane"></i> Join our Telegram channel
+        </a>
+    </footer>
 
-<!-- Plyr JS -->
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js" defer></script>
-
-<script defer>
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Plyr
-    const player = new Plyr('#player', {
-        autoplay: false,
-        muted: false,
-        volume: 1,
-        controls: ['play', 'progress', 'volume', 'fullscreen', 'current-time', 'duration'],
-    });
-
-    // Audio warning if no audio detected
-    player.on('ready', () => {
-        player.volume = 1;
-        player.muted = false;
-        if(player.media.mozHasAudio === false || player.media.webkitAudioDecodedByteCount === 0){
-            document.getElementById('audio-warning').style.display = 'block';
-        }
-    });
-
-    // Ensure volume is restored on first play (fix browser autoplay policies)
-    player.on('play', () => {
-        if(player.muted) player.muted = false;
-        player.volume = 1;
-    });
-
-    // Mute/Unmute button
-    const muteBtn = document.getElementById('mute-btn');
-    muteBtn.addEventListener('click', () => {
-        player.muted = !player.muted;
-        muteBtn.textContent = player.muted ? '🔇' : '🔊';
-    });
-
-    // Theme toggle
-    const themeBtn = document.querySelector('.theme-toggle');
-    themeBtn.addEventListener('click', () => {
-        document.documentElement.dataset.theme =
-            document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        themeBtn.innerHTML = document.documentElement.dataset.theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-    });
-
-    // Current year
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-
-    // Toast function
-    const toast = document.getElementById('toast');
-    const showToast = (message) => {
-        toast.querySelector('.toast-message').textContent = message;
-        toast.setAttribute('aria-hidden', 'false');
-        setTimeout(() => toast.setAttribute('aria-hidden', 'true'), 2500);
-    };
-
-    // Copy Link button
-    const copyBtn = document.querySelector('[aria-label="Copy video link to clipboard"]');
-    copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText('{{ src }}')
-            .then(() => showToast('Video link copied!'))
-            .catch(() => showToast('Failed to copy link.'));
-    });
-
-    // Download button
-    const downloadBtn = document.querySelector('[aria-label="Download video file"]');
-    downloadBtn.addEventListener('click', () => {
-        const a = document.createElement('a');
-        a.href = '{{ src }}';
-        a.download = '{{ file_name }}';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        showToast('Download started!');
-    });
-
-    // Stream menu toggle
-    const streamBtn = document.getElementById('stream-btn-label');
-    const streamMenu = document.getElementById('stream-menu');
-    const closeStreamBtn = streamMenu.querySelector('.stream-menu-close');
-
-    streamBtn.addEventListener('click', () => {
-        const expanded = streamBtn.getAttribute('aria-expanded') === 'true';
-        streamBtn.setAttribute('aria-expanded', !expanded);
-        streamMenu.style.display = expanded ? 'none' : 'block';
-    });
-
-    closeStreamBtn.addEventListener('click', () => {
-        streamBtn.setAttribute('aria-expanded', false);
-        streamMenu.style.display = 'none';
-    });
-
-    // Stream player buttons
-    const playerCards = streamMenu.querySelectorAll('.player-card');
-    playerCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const playerType = card.dataset.playerType;
-            let urlScheme = '';
-            switch(playerType){
-                case 'vlc':
-                    urlScheme = `vlc://{{ src }}`;
-                    break;
-                case 'mxpro':
-                    urlScheme = `intent://${encodeURIComponent('{{ src }}')}#Intent;package=com.mxtech.videoplayer.pro;end`;
-                    break;
-                case 'mx':
-                    urlScheme = `intent://${encodeURIComponent('{{ src }}')}#Intent;package=com.mxtech.videoplayer.ad;end`;
-                    break;
-                default:
-                    urlScheme = '{{ src }}';
-            }
-            window.open(urlScheme, '_blank');
-            showToast(`Opening in ${card.querySelector('.player-name').textContent}`);
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoElement = document.querySelector('.plyr');
+            new Plyr(videoElement);
         });
-    });
-});
-</script>
 
-<!-- Bot Script -->
-<script src="https://cdn.jsdelivr.net/gh/fyaz05/Resources@main/FileToLink/script.js" defer></script>
+        const currentUrl = window.location.href;
+        const finalUrl = currentUrl.replace("/watch/", "/dl/");
+
+        function playOnline(player) {
+            const playerUrls = {
+                vlc: `vlc://${finalUrl}`,
+                mxp: `intent:${finalUrl}#Intent;package=com.mxtech.videoplayer.pro;end`,
+                mx: `intent:${finalUrl}#Intent;package=com.mxtech.videoplayer.ad;end`,
+                np: `nplayer-${finalUrl}`,
+                sp: `intent:${finalUrl}#Intent;action=com.young.simple.player.playback_online;package=com.young.simple.player;end`,
+                km: `intent:${finalUrl}#Intent;package=com.kmplayer;end`
+            };
+            window.location.href = playerUrls[player] || finalUrl;
+        }
+
+        function download() {
+            window.location.href = finalUrl;
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(finalUrl)
+                .then(() => {
+                    const feedback = document.createElement('div');
+                    feedback.className = 'feedback';
+                    feedback.textContent = "📋 Link copied to clipboard!";
+                    feedback.setAttribute("role", "alert");
+                    document.body.appendChild(feedback);
+                    setTimeout(() => feedback.remove(), 3000);
+                })
+                .catch(err => console.error('Could not copy text: ', err));
+        }
+    </script>
 </body>
 </html>
